@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="CSS/signup.css">
+</head>
+
+<body>
+    <div class="floating"></div>
+    <div class="floating"></div>
+
+    <div class="signup-container">
+        <div class="signup-header">
+            <h2>Create Your Account</h2>
+            <p>Join our community today</p>
+        </div>
+
+        <div class="social-login" id='social-login'>
+            <button class="social-btn google" aria-label="Sign up with Google">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <button class="social-btn facebook" aria-label="Sign up with Facebook">
+                <i class="fab fa-facebook-f"></i> Continue with Facebook
+            </button>
+        </div>
+
+        <div class="divider" id="divider">or</div>
+
+        <div class="progress-steps" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="step active" id="step1">1</div>
+            <div class="step" id="step2">2</div>
+            <div class="step" id="step3">3</div>
+        </div>
+
+        <form id="signupForm">
+            <div class="form-step active" id="step1-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required
+                            aria-required="true">
+                    </div>
+                    <div class="error-message" id="name-error" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required
+                            aria-required="true">
+                    </div>
+                    <div class="error-message" id="email-error" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number"
+                            pattern="[0-9]{10,15}">
+                    </div>
+                    <div class="error-message" id="phone-error" role="alert"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" id="nextBtn1" aria-label="Next step">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-step" id="step2-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-at"></i>
+                        <input type="text" id="username" name="username" placeholder="Choose a username" required
+                            aria-required="true">
+                    </div>
+                    <div class="error-message" id="username-error" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required
+                            aria-required="true">
+                        <i class="fas fa-eye password-toggle" id="togglePassword" role="button"
+                            aria-label="Toggle password visibility"></i>
+                    </div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                    </div>
+                    <div class="password-requirements">
+                        <div class="requirement" id="lengthReq">
+                            <i class="far fa-circle"></i> At least 8 characters
+                        </div>
+                        <div class="requirement" id="numberReq">
+                            <i class="far fa-circle"></i> Contains a number
+                        </div>
+                        <div class="requirement" id="specialReq">
+                            <i class="far fa-circle"></i> Contains a special character
+                        </div>
+                    </div>
+                    <div class="error-message" id="password-error" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirmPassword" name="confirmPassword"
+                            placeholder="Confirm your password" required aria-required="true">
+                    </div>
+                    <div class="error-message" id="confirm-error" role="alert"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="prevBtn2" aria-label="Previous step">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button type="button" class="btn btn-primary" id="nextBtn2" aria-label="Next step">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="form-step" id="step3-form">
+                <div class="form-group">
+                    <label for="otpInput">Email Verification Code</label>
+                    <p>A verification code has been sent to your email.</p>
+                    <div class="input-with-icon">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="otpInput" name="otp" placeholder="Enter the 6-digit code" required
+                            aria-required="true" maxlength="6">
+                    </div>
+                    <div class="error-message" id="otp-error" role="alert"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="custom-checkbox-label terms-label">
+                        <input type="checkbox" name="terms" id="terms" required class="custom-checkbox">
+                        I agree to the <a href="#" style="color: var(--primary-color);">Terms of Service</a> and <a
+                            href="#" style="color: var(--primary-color);">Privacy Policy</a>
+                    </label>
+                    <div class="error-message" id="terms-error" role="alert"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="prevBtn3" aria-label="Previous step" >
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                     <button type="button" class="btn btn-primary" id="resendOtpBtn">
+                        Resend OTP
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" aria-label="Complete signup">
+                        Complete Signup
+                        <div class="loading" id="submitLoading"></div>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <h3>Account Created Successfully!</h3>
+            <p>Welcome to our community. Your account has been created.</p>
+            <button class="btn btn-primary" onclick="window.location.href='profile.html'">Go to Dashboard</button>
+        </div>
+
+        <div class="login-link">
+            Already have an account? <a href="index.html">Login</a>
+        </div>
+    </div>
+
+    <script type="module" src="JS/signup.js"></script>
+</body>
+
+</html>

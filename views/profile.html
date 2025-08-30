@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --danger-color: #f72585;
+            --success-color: #4ad66d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --gray-color: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .profile-header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-right: 30px;
+            transition: var(--transition);
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .profile-title {
+            color: var(--gray-color);
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .profile-bio {
+            margin-bottom: 15px;
+            max-width: 600px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            margin-right: 8px;
+            color: var(--primary-color);
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(67, 97, 238, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Content */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .profile-sidebar {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            margin-bottom: 25px;
+        }
+
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 15px;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 4px;
+        }
+
+        /* Main Content */
+        .profile-main {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+        }
+
+        .tab-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            position: relative;
+            font-weight: 600;
+            color: var(--gray-color);
+            transition: var(--transition);
+        }
+
+        .tab:hover {
+            color: var(--primary-color);
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* About Section */
+        .about-item {
+            margin-bottom: 20px;
+        }
+
+        .about-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        /* Activity Section */
+        .activity-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(67, 97, 238, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .activity-date {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        /* Edit Profile Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray-color);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-top {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-avatar {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .profile-actions {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-header {
+                padding: 20px;
+            }
+            
+            .profile-stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .profile-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-top">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Picture" class="profile-avatar" id="profileAvatar">
+                <div class="profile-info">
+                    <h1 class="profile-name" id="profileName">John Doe</h1>
+                    <p class="profile-title">Senior Web Developer</p>
+                    <p class="profile-bio">Passionate about creating beautiful and functional web applications. Specializing in front-end development with React and Vue.js.</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-map-marker-alt stat-icon"></i>
+                            <span id="profileLocation">San Francisco, CA</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-briefcase stat-icon"></i>
+                            <span id="profileCompany">TechCorp Inc.</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-calendar-alt stat-icon"></i>
+                            <span>Joined June 2020</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-actions">
+                <button class="btn btn-primary" id="editProfileBtn">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button class="btn btn-outline">
+                    <i class="fas fa-share-alt"></i> Share
+                </button>
+                <button class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Message
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-info-circle"></i> About</h3>
+                    <ul class="contact-info">
+                        <li class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <div class="contact-label">Email</div>
+                                <div class="contact-value" id="sidebarEmail">john.doe@example.com</div>
+                            </div>
+                        </li>
+                        <li class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <div class="contact-label">Phone</div>
+                                <div class="contact-value" id="sidebarPhone">(123) 456-7890</div>
+                            </div>
+                        </li>
+                        <li class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <div>
+                                <div class="contact-label">Birthday</div>
+                                <div class="contact-value" id="sidebarBirthday">January 15, 1990</div>
+                            </div>
+                        </li>
+                        <li class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <div class="contact-label">Website</div>
+                                <div class="contact-value">
+                                    <a href="#" id="sidebarWebsite">johndoe.dev</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-code"></i> Skills</h3>
+                    <ul class="skills-list">
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>JavaScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>React</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%;"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>Node.js</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%;"></div>
+                            </div>
+                        </li>
+                        <li class="skill-item">
+                            <div class="skill-name">
+                                <span>UI/UX Design</span>
+                                <span>70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%;"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title"><i class="fas fa-users"></i> Social</h3>
+                    <div class="social-links">
+                        <a href="#" class="btn btn-outline" style="margin-bottom: 10px; width: 100%;">
+                            <i class="fab fa-github"></i> GitHub
+                        </a>
+                        <a href="#" class="btn btn-outline" style="margin-bottom: 10px; width: 100%;">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
+                        <a href="#" class="btn btn-outline" style="width: 100%;">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="profile-main">
+                <div class="tab-container">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="about">About</div>
+                        <div class="tab" data-tab="activity">Activity</div>
+                        <div class="tab" data-tab="projects">Projects</div>
+                        <div class="tab" data-tab="settings">Settings</div>
+                    </div>
+
+                    <div class="tab-content active" id="about-tab">
+                        <div class="about-item">
+                            <h4 class="about-title">Introduction</h4>
+                            <p id="aboutIntroduction">I'm a passionate web developer with over 5 years of experience in building modern web applications. I specialize in JavaScript frameworks and have a strong eye for design and user experience.</p>
+                        </div>
+                        <div class="about-item">
+                            <h4 class="about-title">Education</h4>
+                            <p id="aboutEducation">Bachelor's Degree in Computer Science from Stanford University (2015)</p>
+                        </div>
+                        <div class="about-item">
+                            <h4 class="about-title">Experience</h4>
+                            <p id="aboutExperience">Currently working as a Senior Frontend Developer at TechCorp Inc. Previously worked at WebSolutions as a Full Stack Developer.</p>
+                        </div>
+                        <div class="about-item">
+                            <h4 class="about-title">Interests</h4>
+                            <p id="aboutInterests">When I'm not coding, I enjoy hiking, photography, and playing guitar. I'm also an avid reader of science fiction.</p>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="activity-tab">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Completed Project "Dashboard UI"</h4>
+                                <p>Finished developing the new admin dashboard interface with responsive design and dark mode.</p>
+                                <div class="activity-date">Today, 10:30 AM</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Published Article</h4>
+                                <p>Published a new article about React performance optimization techniques.</p>
+                                <div class="activity-date">Yesterday, 3:45 PM</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4 class="activity-title">Attended Meetup</h4>
+                                <p>Participated in the local JavaScript meetup and gave a talk about Vue 3 Composition API.</p>
+                                <div class="activity-date">March 15, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="projects-tab">
+                        <p>Projects content goes here...</p>
+                    </div>
+
+                    <div class="tab-content" id="settings-tab">
+                        <p>Settings content goes here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Profile</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="editName">Full Name</label>
+                        <input type="text" id="editName" class="form-control" value="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="editTitle">Professional Title</label>
+                        <input type="text" id="editTitle" class="form-control" value="Senior Web Developer">
+                    </div>
+                    <div class="form-group">
+                        <label for="editBio">Bio</label>
+                        <textarea id="editBio" class="form-control" rows="4">Passionate about creating beautiful and functional web applications. Specializing in front-end development with React and Vue.js.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLocation">Location</label>
+                        <input type="text" id="editLocation" class="form-control" value="San Francisco, CA">
+                    </div>
+                    <div class="form-group">
+                        <label for="editCompany">Company</label>
+                        <input type="text" id="editCompany" class="form-control" value="TechCorp Inc.">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" class="form-control" value="john.doe@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">Phone</label>
+                        <input type="tel" id="editPhone" class="form-control" value="(123) 456-7890">
+                    </div>
+                    <div class="form-group">
+                        <label for="editBirthday">Birthday</label>
+                        <input type="text" id="editBirthday" class="form-control" value="January 15, 1990">
+                    </div>
+                    <div class="form-group">
+                        <label for="editWebsite">Website</label>
+                        <input type="url" id="editWebsite" class="form-control" value="johndoe.dev">
+                    </div>
+                    <div class="form-group">
+                        <label for="editIntroduction">Introduction</label>
+                        <textarea id="editIntroduction" class="form-control" rows="3">I'm a passionate web developer with over 5 years of experience in building modern web applications. I specialize in JavaScript frameworks and have a strong eye for design and user experience.</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelEdit">Cancel</button>
+                <button class="btn btn-primary" id="saveProfile">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+
+            // Edit Profile Modal
+            const editProfileBtn = document.getElementById('editProfileBtn');
+            const editProfileModal = document.getElementById('editProfileModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelEdit = document.getElementById('cancelEdit');
+            const saveProfile = document.getElementById('saveProfile');
+
+            // Open modal
+            editProfileBtn.addEventListener('click', function() {
+                editProfileModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Close modal
+            function closeProfileModal() {
+                editProfileModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+
+            closeModal.addEventListener('click', closeProfileModal);
+            cancelEdit.addEventListener('click', closeProfileModal);
+
+            // Close modal when clicking outside
+            editProfileModal.addEventListener('click', function(e) {
+                if (e.target === editProfileModal) {
+                    closeProfileModal();
+                }
+            });
+
+            // Save profile changes
+            saveProfile.addEventListener('click', function() {
+                // Get values from form
+                const name = document.getElementById('editName').value;
+                const title = document.getElementById('editTitle').value;
+                const bio = document.getElementById('editBio').value;
+                const location = document.getElementById('editLocation').value;
+                const company = document.getElementById('editCompany').value;
+                const email = document.getElementById('editEmail').value;
+                const phone = document.getElementById('editPhone').value;
+                const birthday = document.getElementById('editBirthday').value;
+                const website = document.getElementById('editWebsite').value;
+                const introduction = document.getElementById('editIntroduction').value;
+
+                // Update profile with new values
+                document.getElementById('profileName').textContent = name;
+                document.getElementById('profileLocation').textContent = location;
+                document.getElementById('profileCompany').textContent = company;
+                document.querySelector('.profile-title').textContent = title;
+                document.querySelector('.profile-bio').textContent = bio;
+                document.getElementById('sidebarEmail').textContent = email;
+                document.getElementById('sidebarPhone').textContent = phone;
+                document.getElementById('sidebarBirthday').textContent = birthday;
+                document.getElementById('sidebarWebsite').textContent = website;
+                document.getElementById('aboutIntroduction').textContent = introduction;
+
+                // In a real app, you would send this data to the server here
+
+                // Show success message
+                alert('Profile updated successfully!');
+                
+                // Close modal
+                closeProfileModal();
+            });
+
+            // Avatar upload simulation
+            const profileAvatar = document.getElementById('profileAvatar');
+            profileAvatar.addEventListener('click', function() {
+                // In a real app, this would open a file picker
+                const confirmChange = confirm('Would you like to change your profile picture?');
+                if (confirmChange) {
+                    // Simulate different avatar (in real app, you would upload the image)
+                    const randomId = Math.floor(Math.random() * 100);
+                    this.src = `https://randomuser.me/api/portraits/men/${randomId}.jpg`;
+                    
+                    // Show success message
+                    alert('Profile picture updated!');
+                }
+            });
+
+            // Keyboard accessibility for tabs
+            tabs.forEach(tab => {
+                tab.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

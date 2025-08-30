@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+    .part1 {
+        background-color: blue;
+        border: 5px solid;
+        height: 500px;
+        display: none;
+    }
+
+    .part2 {
+        background-color: yellow;
+        border: 5px solid;
+        height: 500px;
+        display: none;
+    }
+
+    .part3 {
+        background-color: green;
+        border: 5px solid;
+        height: 500px;
+        display: none;
+    }
+
+    .part4 {
+        background-color: violet;
+        border: 5px solid;
+        height: 500px;
+        display: none;
+    }
+
+    .part5 {
+        background-color: orange;
+        border: 5px solid;
+        height: 500px;
+        display: none;
+    }
+
+    .active {
+        display: block;
+        font-size: 500px;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <div class="part1 active form" id="box1"><button style="height: 30px;" id="btn1">click for magic</button>1</div>
+    <div class="part2 form" id="box2"><button style="height: 30px;" id="btn2">click for magic</button>2</div>
+    <div class="part3 form" id="box3"><button style="height: 30px;" id="btn3">click for magic</button>3</div>
+    <div class="part4 form" id="box4"><button style="height: 30px;" id="btn4">click for magic</button>4</div>
+    <div class="part5  form" id="box5"></div>
+</body>
+<script>
+    let id = 0
+
+    let btn1 = document.getElementById('btn1')
+    let btn2 = document.getElementById('btn2')
+    let btn3 = document.getElementById('btn3')
+    let btn4 = document.getElementById('btn4')
+ 
+
+    function update(Id) {// this function act as the same working when you click on next 
+        let i = Id - 1
+        document.getElementById(`box${Id}`).classList.add('active')//add class active which set display='block'
+        document.getElementById(`box${i}`).classList.remove('active')//this line remove the activec class
+    }
+
+    btn1.addEventListener('click', () => {
+        let Id = 2
+        update(Id)// function calling with argument 2
+    })
+    btn2.addEventListener('click', () => {
+        let Id = 3
+        update(Id)
+    })
+
+    btn3.addEventListener('click', () => {
+        let Id = 4
+        update(Id)
+    })
+
+    btn4.addEventListener('click', () => {
+        let Id = 5
+        update(Id)
+    })
+</script>
+
+</html>
