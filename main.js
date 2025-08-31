@@ -150,52 +150,52 @@ app.post('/verify-otp', async (req, res) => {
     }
     else {
       //============== saving user data and sendin to the dashbord by the EJS ===============
-      saveUser(req,res)
-async function saveUser(req, res) {
-  try {
-    const data = req.body;
+      saveUser(req, res)
+      async function saveUser(req, res) {
+        try {
+          const data = req.body;
 
-    // Hash the password
-    const hash = await bcrypt.hash(data.password, 8);
+          // Hash the password
+          const hash = await bcrypt.hash(data.password, 8);
 
-    // Check if user already exists
-    let user = await userdata.findOne({ email: data.email });
+          // Check if user already exists
+          let user = await userdata.findOne({ email: data.email });
 
-    if (user) {
-      // Update existing user
-      await userdata.updateOne(
-        { email: data.email }, // filter
-        {
-          $set: {
-            fullName: data.fullName,
-            Username: data.username,
-            phone: data.phone,
-            password: hash,
-          },
+          if (user) {
+            // Update existing user
+            await userdata.updateOne(
+              { email: data.email }, // filter
+              {
+                $set: {
+                  fullName: data.fullName,
+                  Username: data.username,
+                  phone: data.phone,
+                  password: hash,
+                },
+              }
+            );
+            return res.status(200).json({ success: true, message: "User updated" });
+          } else {
+            // Create new user
+            const newUser = await userdata.create({
+              fullName: data.fullName,
+              Username: data.username,
+              email: data.email,
+              phone: data.phone,
+              password: hash,
+            });
+            console.log("New user credential saved:", newUser);
+            return res.status(200).json({ success: true, message: "User created" });
+          }
+        } catch (err) {
+          console.error("Error in saving user:", err.message);
+          return res
+            .status(500)
+            .json({ success: false, message: "Unexpected server error" });
         }
-      );
-      return res.status(200).json({ success: true, message: "User updated" });
-    } else {
-      // Create new user
-      const newUser = await userdata.create({
-        fullName: data.fullName,
-        Username: data.username,
-        email: data.email,
-        phone: data.phone,
-        password: hash,
-      });
-      console.log("New user credential saved:", newUser);
-      return res.status(200).json({ success: true, message: "User created" });
+      }
     }
-  } catch (err) {
-    console.error("Error in saving user:", err.message);
-    return res
-      .status(500)
-      .json({ success: false, message: "Unexpected server error" });
   }
-}
-    }
-}
   catch {
     console.log("user not found in otp verification")
   }
@@ -216,22 +216,31 @@ async function saveUser(req, res) {
 })
 
 //================================================== API login =========================================================
-app.post("/login",async (req, res) => {
-  console.log(" Login API hit  ")
+app.post("/login", async (req, res) => {
+  console.log("Login API hit");
   const data = req.body;
-  console.log(data)
-let user = userdata.findOne({email:data.email})
-if (user) {
-      // Update existing user
-      console.log('user found')
-      return res.status(200).json({ success: false, message: "User fouund" });
-    } else {
-     console.log('user not  found')
-      console.log("New user credential saved:", newUser);
-      return res.status(400).json({ success: true, message: "User not found " });
+  console.log(data);
+  try {
+    const user = await userdata.findOne({ email: data.email });
+    console.log(user);
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ success: false, message: "User not found" });
     }
+    const isMatch = await bcrypt.compare(data.password, user.password);
+    console.log(isMatch);
+    if (isMatch === false) {
+      return res.status(401).json({ success: false, message: "Incorrect password" });
+    }
+    console.log('User found, login successful');
+    return res.status(200).json({ success: true, message: "ok", user: user });
 
-})
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -98,22 +98,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
             password: document.getElementById('password').value.trim()
         }
         try {
-            const responce = await login(data)
+            const response = await login(data);
+            console.log('im in try statement');
 
-            if (responce.message == "User fouund") {
-
-                window.location.replace("http://127.0.0.1:3000/profile.html")
-                alert("login")
-
+            if (response.success) {
+                window.location.replace("http://127.0.0.1:3000/profile.html");
+                alert("login");
+            } else {
+                throw new Error("invalid user email or password");
             }
-            else {
-                throw new Error("unable to login")
-            }
-
         }
         catch (err) {
-            console.log("unabel to login")
-
+            console.log("Login failed:", err.message);
+            alert(err.message);
         }
 
         finally {
