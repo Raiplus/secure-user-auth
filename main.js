@@ -216,7 +216,20 @@ async function saveUser(req, res) {
 })
 
 //================================================== API login =========================================================
-app.post("/", (req, res) => {
+app.post("/login",async (req, res) => {
+  console.log(" Login API hit  ")
+  const data = req.body;
+  console.log(data)
+let user = userdata.findOne({email:data.email})
+if (user) {
+      // Update existing user
+      console.log('user found')
+      return res.status(200).json({ success: false, message: "User fouund" });
+    } else {
+     console.log('user not  found')
+      console.log("New user credential saved:", newUser);
+      return res.status(400).json({ success: true, message: "User not found " });
+    }
 
 })
 

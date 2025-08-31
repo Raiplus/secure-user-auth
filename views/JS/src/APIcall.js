@@ -40,3 +40,19 @@ export async function verifyOtp(data) {
 }
 //otp verification 
 export let registerUser=null
+//====================== ============================
+export async function login(data) {
+  const response = await fetch('http://127.0.0.1:3000/login', {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)  
+  });
+  if (!response.ok) throw new Error("Invalid OTP");
+  
+    else {
+        // API for user registration
+        console.log("OTP verified, proceed with registration");
+    }
+  
+  return response.json();
+}

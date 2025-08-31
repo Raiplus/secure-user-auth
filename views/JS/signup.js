@@ -1,5 +1,5 @@
 // Assuming these functions are in your APIcall.js and they return Promises
-import { generateOTP, resendOtp, registerUser, verifyOtp } from './src/APIcall.js';
+import { generateOTP, resendOtp, verifyOtp } from './src/APIcall.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     // Form steps navigation
