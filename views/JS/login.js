@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             console.log('im in try statement');
 
             if (response.success) {
-                window.location.replace("http://127.0.0.1:3000/profile.html");
+                window.location.replace("/profile.html");
                 alert("login");
             } else {
                 throw new Error("invalid user email or password");

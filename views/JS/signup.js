@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
                     console.log("OTP verified, proceed with registration");
-                    window.location.replace("http://127.0.0.1:3000/profile.html")
+                    window.location.replace("/profile.html")
                 }
             }
             catch (err) {

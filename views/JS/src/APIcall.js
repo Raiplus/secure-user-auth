@@ -2,7 +2,7 @@
 //============================ FN for OTP generation ================================================
 export async function generateOTP(data) {
   try {
-    const response = await fetch('http://127.0.0.1:3000/generate-otp', {
+    const response = await fetch('/generate-otp', {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
@@ -26,7 +26,7 @@ export async function resendOtp(data) {
 
 //==================================================== Fn for otp verification ============================
 export async function verifyOtp(data) {
-  const response = await fetch('http://127.0.0.1:3000/verify-otp', {
+  const response = await fetch('/verify-otp', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -44,7 +44,7 @@ export async function verifyOtp(data) {
 export let registerUser = null
 //====================== ============================
 export async function login(data) {
-  const response = await fetch('http://127.0.0.1:3000/login', {
+  const response = await fetch('/login', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
